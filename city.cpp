@@ -201,10 +201,12 @@ void city::imprimir(){
 	std::cout<<"Filas: "<<x_<<"\tColumnas: "<<y_<<"\tObstaculos: "<<obs_<<"\n";
 	for(int i=0;i<x_+2;i++){
 		for(int j=0;j<y_+2;j++){
-			if(get_val(i,j)==3)std::cout<<NEG<<col[3]<<'8'<<RST<<" ";
+			int aux=get_val(i,j);
+			std::cout<<col[aux]<<fig[aux]<<RST<<" ";
+			//if(get_val(i,j)==3)std::cout<<NEG<<col[3]<<'8'<<RST<<" ";
 
-			else if(get_val(i,j)==4)std::cout<<col[4]<<'@'<<RST<<" ";
-				else std::cout<<col[get_val(i,j)]<<'#'<<RST<<" ";
+			//else if(get_val(i,j)==4)std::cout<<col[4]<<'@'<<RST<<" ";
+			//	else std::cout<<col[get_val(i,j)]<<'#'<<RST<<" ";
 		}
 		std::cout<<"\n";
 	}
@@ -214,10 +216,12 @@ void city::imprimir_metropolis(){
 	std::cout<<"Filas: "<<x_<<"\tColumnas: "<<y_<<"\tObstaculos: "<<obs_<<"\n";
 	for(int i=x_mo;i<x_mm+2;i++){
 		for(int j=y_mo;j<y_mm+2;j++){
-			if(get_val(i,j)==3)std::cout<<NEG<<col[3]<<'8'<<RST<<" ";
+			int aux=get_val(i,j);
+			std::cout<<col[aux]<<fig[aux]<<RST<<" ";
+		//	if(get_val(i,j)==3)std::cout<<NEG<<col[3]<<'8'<<RST<<" ";
 
-			else if(get_val(i,j)==4)std::cout<<col[4]<<'@'<<RST<<" ";
-				else std::cout<<col[get_val(i,j)]<<'#'<<RST<<" ";
+			//else if(get_val(i,j)==4)std::cout<<col[4]<<'@'<<RST<<" ";
+				//else std::cout<<col[get_val(i,j)]<<'#'<<RST<<" ";
 		}
 		std::cout<<"\n";
 	}

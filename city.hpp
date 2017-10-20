@@ -19,6 +19,7 @@
 #define RST  "\x1B[0m"
 #define NEG  "\x1B[1m"
 #define NEGWHIT "\x1B[1m\x1B[37m"
+#define NEGBLU "\x1B[1m\x1B[34m"
 
 #define KSYEL  "\x1B[93m"
 
@@ -43,9 +44,10 @@ class city{
 
 	bool manual;
 
-	std::vector<std::string> col={KGRN,     KWHT,     KRED,          KBLU,     KYEL,	KSYEL,		NEGWHIT};
+	std::vector<std::string> col[7]={KGRN,     KWHT,     KRED,          NEGBLU,     KYEL,	KSYEL,		NEGWHIT};
 	//							  lados  -  fondo  -  obstaculos  -  coche  -  final -  excavadora -Visitado
 	//							  0         1         2              3         4		5			6
+	char fig[7]=				{'#',		'#',	  '#',			 '8',	   '@',     '#',        '#'};
 
 public:
 

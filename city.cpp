@@ -314,7 +314,13 @@ void city::move(){
 		mov='e';
 
 		if(c_[x_tem][y_tem]==1){
-			c_[x_car][y_car]=1;
+			c_[x_car][y_car]=6;
+			c_[x_tem][y_tem]=3;
+			x_car=x_tem;
+			y_car=y_tem;
+		}
+		else if(c_[x_tem][y_tem]==6){
+			c_[x_car][y_car]=6;
 			c_[x_tem][y_tem]=3;
 			x_car=x_tem;
 			y_car=y_tem;

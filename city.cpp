@@ -213,6 +213,7 @@ void city::imprimir(){
 }
 void city::imprimir_metropolis(){
 	system("clear");
+	
 	std::cout<<"Filas: "<<x_<<"\tColumnas: "<<y_<<"\tObstaculos: "<<obs_<<"\n";
 	for(int i=x_mo;i<x_mm+2;i++){
 		for(int j=y_mo;j<y_mm+2;j++){
@@ -263,24 +264,23 @@ void city::move(){
 	mov='e';
 	int x_tem,y_tem;
 	do{
-		if(metropolis)imprimir_metropolis();
-		else imprimir();
-
+		/*if(metropolis)imprimir_metropolis();
+		else*/ //imprimir();
+		ajustar();
 		x_tem=x_car;
 		y_tem=y_car;
 
-		//initscr(); 
-		//cbreak();
-    	//noecho();
-    	//nodelay(stdscr, TRUE);
-    	//scrollok(stdscr, TRUE);
+		initscr(); 
+		cbreak();
+    	noecho();
+    	nodelay(stdscr, TRUE);
+    	scrollok(stdscr, TRUE);
 
-    	//usleep(90000);
+    	usleep(90000);
 
-		//mov=getch();
-    	mov=auto_move();
-    	//getchar();
-		//endwin();
+		mov=getch();
+
+		endwin();
 
 		switch(mov){
 			case 'w':x_tem-=1;break;
@@ -437,5 +437,50 @@ return devo;
 
 
 
+
+}
+
+
+
+
+void city::ajustar(){
+		initscr();				
+		getmaxyx(stdscr,coll,row);	
+		row/=2;	
+		coll-=8;
+		row-=8;
+		refresh();
+		endwin();
+
+		if((row<y_) | ((coll)<x_))
+			metropolis=true;
+		else metropolis=false;
+
+		if(metropolis){
+			x_mo=(x_car-coll/2);
+			y_mo=(y_car-row/2);
+			x_mm=(x_car+coll/2);
+			y_mm=(y_car+row/2);
+
+			if(x_mo<0){
+				x_mo=0;
+				x_mm=coll;
+			}else if(x_mm>x_){
+				x_mm=x_-1;
+				x_mo=x_-coll;
+			}
+
+			if(y_mo<0){
+				y_mo=0;
+				y_mm=row;
+			}else if (x_mm>y_){
+				y_mm=y_-1;
+				y_mo=y_-row;
+			}
+			imprimir_metropolis();
+		}
+		else{
+			imprimir();
+		}
 
 }

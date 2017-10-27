@@ -35,6 +35,9 @@ class city{
 	int obs_;
 	int** c_;
 
+	int row,coll;
+
+
 	int x_car, y_car;
 	int x_v, y_v;
 	
@@ -69,6 +72,7 @@ public:
 
 	void move();
 	char auto_move();
+	void ajustar();
 };
 
 

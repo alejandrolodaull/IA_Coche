@@ -11,6 +11,8 @@
 #include <ncurses.h>
 #include <unistd.h>
 
+#include <math.h>
+
 #define KGRN  "\x1B[32m"
 #define KWHT  "\x1B[37m"
 #define KYEL  "\x1B[33m"
@@ -44,7 +46,7 @@ class city{
 
 	bool manual;
 
-	std::vector<std::string> col[7]={KGRN,     KWHT,     KRED,          NEGBLU,     KYEL,	KSYEL,		NEGWHIT};
+	std::vector<std::string> col={KGRN,     KWHT,     KRED,          NEGBLU,     KYEL,	KSYEL,		NEGWHIT};
 	//							  lados  -  fondo  -  obstaculos  -  coche  -  final -  excavadora -Visitado
 	//							  0         1         2              3         4		5			6
 	char fig[7]=				{'#',		'#',	  '#',			 '8',	   '@',     '#',        '#'};
@@ -66,7 +68,7 @@ public:
 	void imprimir_metropolis();
 
 	void move();
-	void auto_move();
+	char auto_move();
 };
 
 

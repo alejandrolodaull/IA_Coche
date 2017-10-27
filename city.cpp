@@ -198,7 +198,7 @@ int city::get_val(int x, int y){
 }
 void city::imprimir(){
 	system("clear");
-	std::cout<<"Filas: "<<x_<<"\tColumnas: "<<y_<<"\tObstaculos: "<<obs_<<"\n";
+	std::cout<<"Filas: "<<x_<<"\tColumnas: "<<y_<<"\tObstaculos: "<<obs_<<" "<<x_car<<","<<y_car<<" "<<x_v<<","<<y_v<<"\n";
 	for(int i=0;i<x_+2;i++){
 		for(int j=0;j<y_+2;j++){
 			int aux=get_val(i,j);
@@ -269,17 +269,18 @@ void city::move(){
 		x_tem=x_car;
 		y_tem=y_car;
 
-		initscr(); 
-		cbreak();
-    	noecho();
-    	nodelay(stdscr, TRUE);
-    	scrollok(stdscr, TRUE);
+		//initscr(); 
+		//cbreak();
+    	//noecho();
+    	//nodelay(stdscr, TRUE);
+    	//scrollok(stdscr, TRUE);
 
-    	usleep(90000);
+    	//usleep(90000);
 
-		mov=getch();
-
-		endwin();
+		//mov=getch();
+    	mov=auto_move();
+    	//getchar();
+		//endwin();
 
 		switch(mov){
 			case 'w':x_tem-=1;break;
@@ -337,4 +338,104 @@ void city::move(){
 	}while(nollego & nosalir);
 
 	if(!nollego)std::cout<<col[4]<<"GANASTE\n\tGANASTE\n\t\tGANASTE\n\t\t\tGANASTE\n\t\t\t\tGANASTE\n"<<RST;
+}
+
+
+
+char city::auto_move(){
+	/*char aux;
+	char aux2;
+
+	if((x_car-x_v)>=0)aux='w';
+	else aux='s';
+	if((y_car-y_v)>=0)aux='a';
+	else aux2='d';
+	if(aux=='w' & c_[x_car-1][y_car]==4)return aux;
+	else if(aux=='s' & c_[x_car+1][y_car]==4)return aux;
+	else if(aux2=='a' & c_[x_car][y_car-1]==4)return aux2;
+	else if(aux2=='d' & c_[x_car][y_car+1]==4)return aux2;
+	else if(aux=='w' & c_[x_car-1][y_car]!=2)return aux;
+	else if(aux=='s' & c_[x_car+1][y_car]!=2)return aux;
+	else if(aux2=='d' & c_[x_car][y_car-1]!=2)return aux2;
+	else if(aux2=='a' & c_[x_car][y_car+1]!=2)return aux2;
+	else if(aux=='w' & c_[x_car-1][y_car]==6)return aux;
+	else if(aux=='s' & c_[x_car+1][y_car]==6)return aux;
+	else if(aux2=='d' & c_[x_car][y_car-1]==6)return aux2;
+	else if(aux2=='a' & c_[x_car][y_car+1]==6)return aux2;*/
+
+/*
+	//Alineado con la victoria
+	if(x_car==x_v && y_car>y_v && c_[x_car-1][y_car]!=2 && c_[x_car-1][y_car]!=0)return 'a';
+	if(x_car==x_v && y_car<y_v && c_[x_car+1][y_car]!=2 && c_[x_car+1][y_car]!=0)return 'd';
+	if(y_car==y_v && x_car>x_v && c_[x_car][y_car-1]!=2 && c_[x_car][y_car-1]!=0)return 'w';
+	if(y_car==y_v && x_car<x_v && c_[x_car][y_car+1]!=2 && c_[x_car][y_car+1]!=0)return 's';
+
+	//Sin alinear con la victoria
+	if(x_car>x_v && c_[x_car][y_car-1]!=2 && c_[x_car][y_car-1]!=0)return 'w';
+	if(x_car<x_v && c_[x_car][y_car+1]!=2 && c_[x_car][y_car+1]!=0)return 's';
+	if(y_car>y_v && c_[x_car-1][y_car]!=2 && c_[x_car-1][y_car]!=0)return 'a';
+	if(y_car<y_v && c_[x_car+1][y_car]!=2 && c_[x_car+1][y_car]!=0)return 'd';
+*/
+/*
+	if(x_car-x_v>=0 && y_car-y_v>=0)		//
+	else if(x_car-x_v>=0 && y_car-y_v<=0)
+	else if(x_car-x_v<=0 && y_car-y_v>=0)
+	else if(x_car-x_v<=0 && y_car-y_v<=0)
+*/
+int n,s,e,o;
+n=s=e=o=0;
+if(c_[x_car][y_car+1]==1)s++;
+if(c_[x_car][y_car-1]==1)n++;
+if(c_[x_car+1][y_car]==1)e++;
+if(c_[x_car-1][y_car]==1)o++;
+std::cout<<"vacio "<< n<<s<<e<<o;
+
+if(c_[x_car][y_car+1]==4)s+=10;
+if(c_[x_car][y_car-1]==4)n+=10;
+if(c_[x_car+1][y_car]==4)e+=10;
+if(c_[x_car-1][y_car]==4)o+=10;
+std::cout<<"\nvictoria "<<n<<s<<e<<o;
+
+
+if(c_[x_car][y_car+1]==2)s-=10;
+if(c_[x_car][y_car-1]==2)n-=10;
+if(c_[x_car+1][y_car]==2)e-=10;
+if(c_[x_car-1][y_car]==2)o-=10;
+std::cout<<"\nobstaculo "<<n<<s<<e<<o;
+
+int aux, aux2;
+
+if(x_car-x_v>0)o++;
+else e++;
+if(y_car-y_v>0)n++;
+else s++;
+
+std::cout<<"\nn vs s-e vs o "<<n<<s<<e<<o;
+
+if( std::abs(x_car-x_v) < std::abs(y_car-y_v)) {
+	if(x_car>x_v)o++;
+	else e++;
+}
+else{
+	if(y_car>y_v)n++;
+	else s++;
+}
+std::cout<<"\nns vs eo "<<n<<s<<e<<o;
+
+
+std::cout<<" "<<n<<"\n"<<o<<" "<<e<<"\n "<<s<<"\n";
+
+char devo;
+if(n>=s & n>=e & n>=o)devo= 'w';
+if(s>n & s>=e & s>=o) devo= 's';
+if(e>=o & e>=n & e>=s) devo = 'd';
+if(o>e & o>=n & o >=s) devo = 'a';
+
+std::cout<<devo;
+getchar();
+return devo;
+
+
+
+
 }

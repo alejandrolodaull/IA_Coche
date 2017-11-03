@@ -167,32 +167,34 @@ void city::excavadora(){
 
 	}while(nosalir);
 
-	/*if(novictory! && nocoche!){ 
+	std::cin.ignore(256,'\n');
+
+	if(novictory==false && nocoche==false){ 
+
 		std::cout<<"¿Guardar mapa? (s/n)";
+
 		char a= getchar();
 		if(a=='s'){
 			savemap();
 		}
-	}*/
+	}
 }
 
-/*void city::savemap(){
-	/*Ver si existe el archivo
-			-SI-> mover a otra carpeta
-	  Crear archivo nuevo
-	  Volcar datos
-	*/
-	/*char place[] ="read_map/open.txt";
-	std::ifstream fe; 
-	fe.open(place);
-	if(fe.is_open()==1){
-
+void city::savemap(){
+	std::string palabra;
+	std::cout<<"Nombre del mapa? ";
+	std::cin>>palabra;
+	palabra="read_map/"+palabra+".txt";
+	std::fstream file;
+	file.open(palabra,std::fstream::out);
+	file<<x_<<"\n"<<y_<<"\n";
+	for(int i=1;i<=x_;i++){
+		for (int j=1;j<=y_;j++){
+			file<<c_[i][j]<<" ";
+		}
+		file<<"\n";
 	}
-	else{
-
-	}
-
-}*/
+}
 
 int city::get_val(int x, int y){
 	return c_[x][y];
@@ -341,221 +343,6 @@ void city::move(){
 	if(!nollego)std::cout<<col[4]<<"GANASTE\n\tGANASTE\n\t\tGANASTE\n\t\t\tGANASTE\n\t\t\t\tGANASTE\n"<<RST;
 }
 
-
-/*
-char city::auto_move(){
-	char aux;
-	char aux2;
-
-	if((x_car-x_v)>=0)aux='w';
-	else aux='s';
-	if((y_car-y_v)>=0)aux='a';
-	else aux2='d';
-	if(aux=='w' & c_[x_car-1][y_car]==4)return aux;
-	else if(aux=='s' & c_[x_car+1][y_car]==4)return aux;
-	else if(aux2=='a' & c_[x_car][y_car-1]==4)return aux2;
-	else if(aux2=='d' & c_[x_car][y_car+1]==4)return aux2;
-	else if(aux=='w' & c_[x_car-1][y_car]!=2)return aux;
-	else if(aux=='s' & c_[x_car+1][y_car]!=2)return aux;
-	else if(aux2=='d' & c_[x_car][y_car-1]!=2)return aux2;
-	else if(aux2=='a' & c_[x_car][y_car+1]!=2)return aux2;
-	else if(aux=='w' & c_[x_car-1][y_car]==6)return aux;
-	else if(aux=='s' & c_[x_car+1][y_car]==6)return aux;
-	else if(aux2=='d' & c_[x_car][y_car-1]==6)return aux2;
-	else if(aux2=='a' & c_[x_car][y_car+1]==6)return aux2;
-
-
-	//Alineado con la victoria
-	if(x_car==x_v && y_car>y_v && c_[x_car-1][y_car]!=2 && c_[x_car-1][y_car]!=0)return 'a';
-	if(x_car==x_v && y_car<y_v && c_[x_car+1][y_car]!=2 && c_[x_car+1][y_car]!=0)return 'd';
-	if(y_car==y_v && x_car>x_v && c_[x_car][y_car-1]!=2 && c_[x_car][y_car-1]!=0)return 'w';
-	if(y_car==y_v && x_car<x_v && c_[x_car][y_car+1]!=2 && c_[x_car][y_car+1]!=0)return 's';
-
-	//Sin alinear con la victoria
-	if(x_car>x_v && c_[x_car][y_car-1]!=2 && c_[x_car][y_car-1]!=0)return 'w';
-	if(x_car<x_v && c_[x_car][y_car+1]!=2 && c_[x_car][y_car+1]!=0)return 's';
-	if(y_car>y_v && c_[x_car-1][y_car]!=2 && c_[x_car-1][y_car]!=0)return 'a';
-	if(y_car<y_v && c_[x_car+1][y_car]!=2 && c_[x_car+1][y_car]!=0)return 'd';
-
-	if(x_car-x_v>=0 && y_car-y_v>=0)		//
-	else if(x_car-x_v>=0 && y_car-y_v<=0)
-	else if(x_car-x_v<=0 && y_car-y_v>=0)
-	else if(x_car-x_v<=0 && y_car-y_v<=0)
-
-int n,s,e,o;
-n=s=e=o=0;
-if(c_[x_car][y_car+1]==1)s++;
-if(c_[x_car][y_car-1]==1)n++;
-if(c_[x_car+1][y_car]==1)e++;
-if(c_[x_car-1][y_car]==1)o++;
-std::cout<<"vacio "<< n<<s<<e<<o;
-
-if(c_[x_car][y_car+1]==4)s+=10;
-if(c_[x_car][y_car-1]==4)n+=10;
-if(c_[x_car+1][y_car]==4)e+=10;
-if(c_[x_car-1][y_car]==4)o+=10;
-std::cout<<"\nvictoria "<<n<<s<<e<<o;
-
-
-if(c_[x_car][y_car+1]==2)s-=10;
-if(c_[x_car][y_car-1]==2)n-=10;
-if(c_[x_car+1][y_car]==2)e-=10;
-if(c_[x_car-1][y_car]==2)o-=10;
-std::cout<<"\nobstaculo "<<n<<s<<e<<o;
-
-int aux, aux2;
-
-if(x_car-x_v>0)o++;
-else e++;
-if(y_car-y_v>0)n++;
-else s++;
-
-std::cout<<"\nn vs s-e vs o "<<n<<s<<e<<o;
-
-if( std::abs(x_car-x_v) < std::abs(y_car-y_v)) {
-	if(x_car>x_v)o++;
-	else e++;
-}
-else{
-	if(y_car>y_v)n++;
-	else s++;
-}
-std::cout<<"\nns vs eo "<<n<<s<<e<<o;
-
-
-std::cout<<" "<<n<<"\n"<<o<<" "<<e<<"\n "<<s<<"\n";
-
-char devo;
-if(n>=s & n>=e & n>=o)devo= 'w';
-if(s>n & s>=e & s>=o) devo= 's';
-if(e>=o & e>=n & e>=s) devo = 'd';
-if(o>e & o>=n & o >=s) devo = 'a';
-
-std::cout<<devo;
-getchar();
-return devo;
-
-
-
-
-}
-
-*/
-
-/*
-void city::ajustar(){
-	//coll = filas --> y
-
-		initscr();				
-		getmaxyx(stdscr,coll,row);	
-		//row/=2;	
-		//coll-=1;
-		//row-=1;
-		std::cout<<"x: "<<row<<" y:"<<coll<<std::endl;
-		std::cout<<"max x:"<<x_<<" max y:"<<y_<<std::endl;
-		getchar();
-		refresh();
-		endwin();
-
-		if((row<y_) | ((coll)<x_))
-			metropolis=true;
-		else metropolis=false;
-
-		if(metropolis){
-			x_mo=(x_car-coll/2);
-			y_mo=(y_car-row/2);
-			x_mm=(x_car+coll/2);
-			y_mm=(y_car+row/2);
-
-			if(x_mo<0){
-				x_mo=0;
-				x_mm=coll;
-			}else if(x_mm>x_){
-				x_mm=x_-1;
-				x_mo=x_-coll;
-			}
-
-			if(y_mo<0){
-				y_mo=0;
-				y_mm=row;
-			}else if (x_mm>y_){
-				y_mm=y_-1;
-				y_mo=y_-row;
-			}
-			imprimir_metropolis();
-		}
-		else{
-			imprimir();
-		}
-
-}*/
-/*
-void city::ajustar2(){
-		//coll = filas --> y
-		int columnasy,filasx;
-
-		//y_ -->row
-		//x_ -->coll
-
-
-		initscr();				
-		getmaxyx(stdscr,filasx,columnasy);	
-		refresh();
-		endwin();
-
-
-		if(x_*2>=filasx){
-			//x_mo
-			if(x_car<=filasx/2){
-				x_mo=0;
-			}
-			else {
-				x_mo=x_car-filasx/2;
-				if(x_mo>x_)x_mo=0;
-			}
-
-			//x_mm
-			if(x_car>=filasx/2){
-				x_mm=(x_car+filasx/2);
-				if(x_mm>x_)x_mm=x_;
-			}
-			else{
-				x_mm=x_-1;
-			}
-
-
-		}
-		if(y_>=columnasy/2){
-			//y_mo
-			if(y_car<=columnasy/4){
-				y_mo=0;
-			}
-			else {
-				y_mo=y_car-columnasy/4;
-				if(y_mo>y_)y_mo=0;
-			}
-
-			//y_mm
-			if(y_car>=columnasy/4){
-				y_mm=(y_car+columnasy/4);
-				if(y_mm>y_)y_mm=y_;
-			}
-			else{
-				y_mm=y_-1;
-			}
-		}
-
-		system("clear");
-		for(int i=x_mo;i<=x_mm-1;i++){
-			for(int j=y_mo; j<=y_mm-1;j++){
-				int aux=c_[i][j];
-				std::cout<<col[aux]<<fig[aux]<<" "<<RST;
-			}
-			std::cout<<std::endl;
-		}
-
-		//getchar();
-}*/
 void city::ajustar3(int xaux, int yaux){
 		//coll = filas --> y
 		int columnasy,filasx;

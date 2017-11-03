@@ -7,13 +7,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <fstream>
-#include <set>
-#include <cmath>
 
 #include <ncurses.h>
 #include <unistd.h>
 
-#include "recorrido.hpp"
+#include <math.h>
 
 #define KGRN  "\x1B[32m"
 #define KWHT  "\x1B[37m"
@@ -22,6 +20,8 @@
 #define KRED  "\x1B[31m"
 #define RST  "\x1B[0m"
 #define NEG  "\x1B[1m"
+#define NEGWHIT "\x1B[1m\x1B[37m"
+#define NEGBLU "\x1B[1m\x1B[34m"
 
 #define KSYEL  "\x1B[93m"
 
@@ -32,9 +32,11 @@ class city{
 
 	int x_;
 	int y_;
-	int f_;
 	int obs_;
 	int** c_;
+
+	int row,coll;
+
 
 	int x_car, y_car;
 	int x_v, y_v;
@@ -42,24 +44,17 @@ class city{
 	char mov;
 
 	bool metropolis;
-	bool ver;
-
 	int x_mo, x_mm;
 	int y_mo, y_mm;
 
 	bool manual;
-	int n_movimientos;
 
-	std::vector<std::vector<bool> > mapa;
-	std::vector<std::vector<int> > posibilidades;
-	
-
-	std::vector<std::string> col={KGRN,     KWHT,     KRED,          KBLU,     KYEL,	KSYEL};
-	//							  lados  -  fondo  -  obstaculos  -  coche  -  final -  excavadora
-	//							  0         1         2              3         4		5
+	std::vector<std::string> col={KGRN,     KWHT,     KRED,          NEGBLU,     KYEL,	KSYEL,		NEGWHIT};
+	//							  lados  -  fondo  -  obstaculos  -  coche  -  final -  excavadora -Visitado
+	//							  0         1         2              3         4		5			6
 	char fig[7]=				{'#',		'#',	  '#',			 '8',	   '@',     '#',        '#'};
-public:
 
+public:
 	city();
 	city(std::string a);
 	int get_val(int,int);
@@ -77,19 +72,10 @@ public:
 	void imprimir_metropolis();
 
 	void move();
-	void auto_move();
-	char get_next_move(std::vector<int>&);
-
-	float f(std::vector<int>, std::vector<int>, int);
-	std::vector<int> encontrar_camino(std::vector<int>);
-	void insert_check(std::set<recorrido>&, std::set<recorrido>&, recorrido);
-
-
-
-/////////////////
+	char auto_move();
 	void ajustar3(int xaux, int yaux);
-/////////////////
 };
+
 
 
 

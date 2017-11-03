@@ -1,5 +1,5 @@
 #include "city.hpp"
 
 int main(){
-	city a;
+	city a("read_map/e.txt");
 }

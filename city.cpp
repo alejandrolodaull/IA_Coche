@@ -1,5 +1,44 @@
 #include "city.hpp"
 
+city::city(std::string palabra){
+	srand(time(NULL));
+	std::ifstream file;
+	file.open(palabra, std::ios::in);
+
+	file>>x_;
+	file>>y_;
+
+	std::cout<<x_<<" "<<y_<<std::endl;
+
+	c_=new int*[x_+2];
+	for(int i=0;i<x_+2;i++)
+		c_[i]=new int[y_+2];
+
+	for(int i=0;i<(x_+2);i++){
+		for(int j=0;j<(y_+2);j++){
+			if(i==0 || i==(x_+1) || j==0 || j==(y_+1))	c_[i][j]=0;
+			else{
+				int aux;
+				file>>aux;
+				c_[i][j]=aux;
+				if(aux==3){
+					x_car=i;
+					y_car=j;
+				}
+				else if(aux==4){
+					x_v=i;
+					y_v=j;
+				}
+
+			} 
+		}
+	}
+	file.close();
+
+	move();
+
+
+}
 
 city::city(){
 	srand(time(NULL));

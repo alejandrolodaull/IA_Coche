@@ -55,8 +55,8 @@ class city{
 	char fig[7]=				{'#',		'#',	  '#',			 '8',	   '@',     '#',        '#'};
 
 public:
-
 	city();
+	city(std::string a);
 	int get_val(int,int);
 
 	void gen_car();
@@ -65,6 +65,7 @@ public:
 
 	void excavadora();
 	void savemap();
+	void readmap();
 	
 
 	void imprimir();

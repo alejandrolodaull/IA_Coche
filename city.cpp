@@ -198,7 +198,7 @@ int city::get_val(int x, int y){
 }
 void city::imprimir(){
 	system("clear");
-	std::cout<<"Filas: "<<x_<<"\tColumnas: "<<y_<<"\tObstaculos: "<<obs_<<" "<<x_car<<","<<y_car<<" "<<x_v<<","<<y_v<<"\n";
+	std::cout<<"Filas x: "<<x_<<"\tColumnas y: "<<y_<<"\tObstaculos: "<<obs_<<" "<<x_car<<","<<y_car<<" "<<x_v<<","<<y_v<<"\n";
 	for(int i=0;i<x_+2;i++){
 		for(int j=0;j<y_+2;j++){
 			int aux=get_val(i,j);
@@ -214,7 +214,7 @@ void city::imprimir(){
 void city::imprimir_metropolis(){
 	system("clear");
 	
-	std::cout<<"Filas: "<<x_<<"\tColumnas: "<<y_<<"\tObstaculos: "<<obs_<<"\n";
+	//std::cout<<"Filas x: "<<x_<<"\tColumnas y: "<<y_<<"\tObstaculos: "<<obs_<<"\n";
 	for(int i=x_mo;i<x_mm+2;i++){
 		for(int j=y_mo;j<y_mm+2;j++){
 			int aux=get_val(i,j);
@@ -266,7 +266,7 @@ void city::move(){
 	do{
 		/*if(metropolis)imprimir_metropolis();
 		else*/ //imprimir();
-		ajustar();
+		ajustar3();
 		x_tem=x_car;
 		y_tem=y_car;
 
@@ -341,9 +341,9 @@ void city::move(){
 }
 
 
-
+/*
 char city::auto_move(){
-	/*char aux;
+	char aux;
 	char aux2;
 
 	if((x_car-x_v)>=0)aux='w';
@@ -361,9 +361,9 @@ char city::auto_move(){
 	else if(aux=='w' & c_[x_car-1][y_car]==6)return aux;
 	else if(aux=='s' & c_[x_car+1][y_car]==6)return aux;
 	else if(aux2=='d' & c_[x_car][y_car-1]==6)return aux2;
-	else if(aux2=='a' & c_[x_car][y_car+1]==6)return aux2;*/
+	else if(aux2=='a' & c_[x_car][y_car+1]==6)return aux2;
 
-/*
+
 	//Alineado con la victoria
 	if(x_car==x_v && y_car>y_v && c_[x_car-1][y_car]!=2 && c_[x_car-1][y_car]!=0)return 'a';
 	if(x_car==x_v && y_car<y_v && c_[x_car+1][y_car]!=2 && c_[x_car+1][y_car]!=0)return 'd';
@@ -375,13 +375,12 @@ char city::auto_move(){
 	if(x_car<x_v && c_[x_car][y_car+1]!=2 && c_[x_car][y_car+1]!=0)return 's';
 	if(y_car>y_v && c_[x_car-1][y_car]!=2 && c_[x_car-1][y_car]!=0)return 'a';
 	if(y_car<y_v && c_[x_car+1][y_car]!=2 && c_[x_car+1][y_car]!=0)return 'd';
-*/
-/*
+
 	if(x_car-x_v>=0 && y_car-y_v>=0)		//
 	else if(x_car-x_v>=0 && y_car-y_v<=0)
 	else if(x_car-x_v<=0 && y_car-y_v>=0)
 	else if(x_car-x_v<=0 && y_car-y_v<=0)
-*/
+
 int n,s,e,o;
 n=s=e=o=0;
 if(c_[x_car][y_car+1]==1)s++;
@@ -440,15 +439,20 @@ return devo;
 
 }
 
+*/
 
-
-
+/*
 void city::ajustar(){
+	//coll = filas --> y
+
 		initscr();				
 		getmaxyx(stdscr,coll,row);	
-		row/=2;	
-		coll-=8;
-		row-=8;
+		//row/=2;	
+		//coll-=1;
+		//row-=1;
+		std::cout<<"x: "<<row<<" y:"<<coll<<std::endl;
+		std::cout<<"max x:"<<x_<<" max y:"<<y_<<std::endl;
+		getchar();
 		refresh();
 		endwin();
 
@@ -483,4 +487,161 @@ void city::ajustar(){
 			imprimir();
 		}
 
+}*/
+/*
+void city::ajustar2(){
+		//coll = filas --> y
+		int columnasy,filasx;
+
+		//y_ -->row
+		//x_ -->coll
+
+
+		initscr();				
+		getmaxyx(stdscr,filasx,columnasy);	
+		refresh();
+		endwin();
+
+
+		if(x_*2>=filasx){
+			//x_mo
+			if(x_car<=filasx/2){
+				x_mo=0;
+			}
+			else {
+				x_mo=x_car-filasx/2;
+				if(x_mo>x_)x_mo=0;
+			}
+
+			//x_mm
+			if(x_car>=filasx/2){
+				x_mm=(x_car+filasx/2);
+				if(x_mm>x_)x_mm=x_;
+			}
+			else{
+				x_mm=x_-1;
+			}
+
+
+		}
+		if(y_>=columnasy/2){
+			//y_mo
+			if(y_car<=columnasy/4){
+				y_mo=0;
+			}
+			else {
+				y_mo=y_car-columnasy/4;
+				if(y_mo>y_)y_mo=0;
+			}
+
+			//y_mm
+			if(y_car>=columnasy/4){
+				y_mm=(y_car+columnasy/4);
+				if(y_mm>y_)y_mm=y_;
+			}
+			else{
+				y_mm=y_-1;
+			}
+		}
+
+		system("clear");
+		for(int i=x_mo;i<=x_mm-1;i++){
+			for(int j=y_mo; j<=y_mm-1;j++){
+				int aux=c_[i][j];
+				std::cout<<col[aux]<<fig[aux]<<" "<<RST;
+			}
+			std::cout<<std::endl;
+		}
+
+		//getchar();
+}*/
+void city::ajustar3(){
+		//coll = filas --> y
+		int columnasy,filasx;
+
+		//y_ -->row
+		//x_ -->coll
+
+
+		initscr();				
+		getmaxyx(stdscr,filasx,columnasy);	
+		refresh();
+		endwin();
+		filasx--;
+		columnasy/=2;
+		if(filasx<x_ && columnasy<y_){		//X  e  Y  se salen del cuadro
+			x_mo=x_car-(filasx/2);
+			x_mm=x_car+(filasx/2);
+			y_mo=y_car-(columnasy/2);
+			y_mm=y_car+(columnasy/2)+1;
+
+			if(y_mo<0){						//estamos pegados a y=0
+				y_mo=0;
+				y_mm=columnasy;
+			}
+			else if(y_mm>y_){				//estamos pegados a y=max
+				y_mm=y_+2;
+				y_mo=(y_+2)-columnasy;
+			}
+			if(x_mo<0){						// x=0
+				x_mo=0;
+				x_mm=filasx;
+			}
+			else if(x_mm>x_){				// x max
+				x_mm=x_+2;
+				x_mo=(x_+2)-filasx;
+			}
+		}
+		else if(filasx>x_ && columnasy<y_){		//la Y es la justa, la que le falta
+			y_mo=y_car-(columnasy/2);
+			y_mm=y_car+(columnasy/2);
+			x_mo=0;
+			x_mm=x_+2;
+			if(y_mo<0){
+				y_mo=0;
+				y_mm=columnasy;
+			}
+			else if(y_mm>y_){
+				y_mm=y_+2;
+				y_mo=(y_+2)-columnasy;
+			}
+
+		}
+		else if(filasx<x_ && columnasy>y_){
+			x_mo=x_car-(filasx/2);
+			x_mm=x_car+(filasx/2);
+			y_mo=0;
+			y_mm=y_+2;
+
+			if(x_mo<0){
+				x_mo=0;
+				x_mm=filasx;
+			}
+			else if(x_mm>x_){
+				x_mm=x_+2;
+				x_mo=(x_+2)-filasx;
+			}
+		}
+		else{
+			x_mo=0;
+			y_mo=0;
+			x_mm=x_+2;
+			y_mm=y_+2;
+		}
+
+
+
+
+		std::cout<<"x: "<<x_mo<<" + "<<x_mm<<std::endl;
+		std::cout<<"y: "<<y_mo<<" + "<<y_mm<<std::endl;
+		system("clear");
+		for(int i=x_mo;i<x_mm;i++){
+			for(int j=y_mo; j<y_mm;j++){
+				int aux=c_[i][j];
+				std::cout<<col[aux]<<fig[aux]<<" "<<RST;
+			}
+			std::cout<<std::endl;
+		}
+
+		//getchar();
 }

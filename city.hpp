@@ -73,6 +73,8 @@ public:
 	void move();
 	char auto_move();
 	void ajustar();
+	void ajustar2();
+	void ajustar3();
 };
 
 

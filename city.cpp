@@ -94,7 +94,8 @@ void city::excavadora(){
 	do{
 		if(anterior==2)ant_x=1;else ant_x=0;
 		obs_=obs_exc+ant_x;
-		imprimir();
+		//imprimir();
+		ajustar3(e_x,e_y);
 
 		initscr(); 
 		cbreak();
@@ -266,7 +267,7 @@ void city::move(){
 	do{
 		/*if(metropolis)imprimir_metropolis();
 		else*/ //imprimir();
-		ajustar3();
+		ajustar3(x_car,y_car);
 		x_tem=x_car;
 		y_tem=y_car;
 
@@ -555,7 +556,7 @@ void city::ajustar2(){
 
 		//getchar();
 }*/
-void city::ajustar3(){
+void city::ajustar3(int xaux, int yaux){
 		//coll = filas --> y
 		int columnasy,filasx;
 
@@ -570,10 +571,10 @@ void city::ajustar3(){
 		filasx--;
 		columnasy/=2;
 		if(filasx<x_ && columnasy<y_){		//X  e  Y  se salen del cuadro
-			x_mo=x_car-(filasx/2);
-			x_mm=x_car+(filasx/2);
-			y_mo=y_car-(columnasy/2);
-			y_mm=y_car+(columnasy/2)+1;
+			x_mo=xaux-(filasx/2);
+			x_mm=xaux+(filasx/2);
+			y_mo=yaux-(columnasy/2);
+			y_mm=yaux+(columnasy/2)+1;
 
 			if(y_mo<0){						//estamos pegados a y=0
 				y_mo=0;
@@ -593,8 +594,8 @@ void city::ajustar3(){
 			}
 		}
 		else if(filasx>x_ && columnasy<y_){		//la Y es la justa, la que le falta
-			y_mo=y_car-(columnasy/2);
-			y_mm=y_car+(columnasy/2);
+			y_mo=yaux-(columnasy/2);
+			y_mm=yaux+(columnasy/2);
 			x_mo=0;
 			x_mm=x_+2;
 			if(y_mo<0){
@@ -608,8 +609,8 @@ void city::ajustar3(){
 
 		}
 		else if(filasx<x_ && columnasy>y_){
-			x_mo=x_car-(filasx/2);
-			x_mm=x_car+(filasx/2);
+			x_mo=xaux-(filasx/2);
+			x_mm=xaux+(filasx/2);
 			y_mo=0;
 			y_mm=y_+2;
 
